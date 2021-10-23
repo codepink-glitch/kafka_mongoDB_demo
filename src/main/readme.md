@@ -1,0 +1,1 @@
+## This is simple project for learning mongoDB and kafka-streams, kafka consumer/producer. So don't bother.
