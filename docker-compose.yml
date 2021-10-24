@@ -3,15 +3,21 @@ version: '3.8'
 services:
   zookeeper1:
     image: wurstmeister/zookeeper
-    ports:
-      - 2181:2181
     container_name: zookeeper1
+    networks:
+      - kafka_network
+    volumes:
+      - ./zookeeper-data:/data/
 
   kafka1:
     image: wurstmeister/kafka
     container_name: kafka1
+    networks:
+      - kafka_network
     ports:
       - 9092:9092
+    volumes:
+      - ./kafka-data:/kafka/
     environment:
       KAFKA_ADVERTISED_HOST_NAME: localhost
       KAFKA_ZOOKEEPER_CONNECT: zookeeper1:2181
@@ -22,7 +28,13 @@ services:
     container_name: mongo_db
     ports:
       - 27017:27017
+    volumes:
+      - ./mongodb-data:/data/db
     environment:
       MONGO_INITDB_ROOT_USERNAME: testuser
       MONGO_INITDB_ROOT_PASSWORD: secret
       MONGO_INITDB_DATABASE: test
+
+networks:
+  kafka_network:
+    name: kafka_network
