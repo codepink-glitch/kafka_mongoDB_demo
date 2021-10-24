@@ -16,3 +16,13 @@ services:
       KAFKA_ADVERTISED_HOST_NAME: localhost
       KAFKA_ZOOKEEPER_CONNECT: zookeeper1:2181
       KAFKA_CREATE_TOPIC: "test-topic:1:1"
+
+  mongo_db:
+    image: mongo:latest
+    container_name: mongo_db
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: testuser
+      MONGO_INITDB_ROOT_PASSWORD: secret
+      MONGO_INITDB_DATABASE: test
